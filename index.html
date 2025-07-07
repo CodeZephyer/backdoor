@@ -5,291 +5,1046 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Backdoor Technology Limited - 智能科技與網絡服務</title>
     <link rel="stylesheet" href="/backdoor/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0f1419;
+            --secondary-color: #1e3a8a;
+            --accent-color: #3b82f6;
+            --light-color: #f8fafc;
+            --dark-color: #0f172a;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+            --security-blue: #1e40af;
+            --deep-blue: #1e3a8a;
+            --cyber-blue: #0ea5e9;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 導航欄 */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--deep-blue) 100%);
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.3);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            background: linear-gradient(135deg, rgba(15, 20, 25, 0.95) 0%, rgba(30, 58, 138, 0.95) 100%);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--cyber-blue);
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyber-blue);
+            text-shadow: 0 0 8px rgba(14, 165, 233, 0.6);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, var(--cyber-blue), var(--accent-color));
+            transition: var(--transition);
+            box-shadow: 0 0 8px rgba(14, 165, 233, 0.6);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* 英雄區 - 深藍安全背景 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, 
+                var(--primary-color) 0%, 
+                var(--deep-blue) 25%, 
+                var(--security-blue) 50%, 
+                var(--deep-blue) 75%, 
+                var(--primary-color) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(14, 165, 233, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
+            animation: securityPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes securityPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.5s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ffffff, var(--cyber-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .security-access {
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .security-access:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+        }
+
+        .security-access a {
+            color: var(--cyber-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .security-access a:hover {
+            color: white;
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.8);
+        }
+
+        .security-access i {
+            font-size: 1.2rem;
+            animation: securityBlink 2s infinite;
+        }
+
+        @keyframes securityBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.5; }
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--cyber-blue), var(--accent-color));
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--cyber-blue);
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.2);
+        }
+
+        .btn-outline:hover {
+            background: linear-gradient(135deg, var(--cyber-blue), var(--accent-color));
+        }
+
+        /* 關於我們 */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--deep-blue);
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 2px 4px rgba(30, 58, 138, 0.1);
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyber-blue), var(--accent-color));
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding: 0 20px;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--deep-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-text h3 i {
+            color: var(--cyber-blue);
+            font-size: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .company-info {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(59, 130, 246, 0.05));
+            border-left: 4px solid var(--cyber-blue);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .company-info ul {
+            list-style: none;
+        }
+
+        .company-info li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .company-info li i {
+            color: var(--cyber-blue);
+            width: 20px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 0 20px;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(30, 58, 138, 0.2);
+            transition: var(--transition);
+        }
+
+        .about-image img:hover {
+            transform: scale(1.03) rotateY(5deg);
+            box-shadow: 0 20px 50px rgba(30, 58, 138, 0.3);
+        }
+
+        /* 服務 */
+        .services {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%230ea5e9" opacity="0.1"/></svg>');
+            background-size: 50px 50px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(14, 165, 233, 0.1);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(135deg, var(--cyber-blue), var(--accent-color));
+            transition: var(--transition);
+            z-index: -1;
+            opacity: 0.05;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.2);
+        }
+
+        .service-card:hover::before {
+            height: 100%;
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            color: var(--cyber-blue);
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--deep-blue);
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* 優勢 */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .advantage-item {
+            display: flex;
+            align-items: flex-start;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.1);
+            transition: var(--transition);
+            border: 1px solid rgba(14, 165, 233, 0.1);
+        }
+
+        .advantage-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(30, 58, 138, 0.15);
+        }
+
+        .advantage-icon {
+            font-size: 2.5rem;
+            color: var(--cyber-blue);
+            margin-right: 25px;
+            padding-top: 5px;
+            text-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
+        }
+
+        .advantage-text h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--deep-blue);
+            font-weight: 600;
+        }
+
+        .advantage-text p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* 願景與價值觀 */
+        .vision {
+            background: linear-gradient(135deg, 
+                var(--primary-color) 0%, 
+                var(--deep-blue) 25%, 
+                var(--security-blue) 50%, 
+                var(--deep-blue) 75%, 
+                var(--primary-color) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vision::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></svg>');
+            background-size: 80px 80px;
+        }
+
+        .vision .section-title h2 {
+            color: white;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .vision-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vision-content p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.8;
+        }
+
+        /* 聯繫方式 */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.1);
+            transition: var(--transition);
+            border: 1px solid rgba(14, 165, 233, 0.1);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(30, 58, 138, 0.15);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            color: var(--cyber-blue);
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .contact-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--deep-blue);
+            font-weight: 600;
+        }
+
+        .contact-item p, .contact-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        .contact-item a:hover {
+            color: var(--cyber-blue);
+            text-shadow: 0 0 8px rgba(14, 165, 233, 0.5);
+        }
+
+        /* 頁腳 */
+        footer {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--deep-blue) 100%);
+            color: white;
+            padding: 60px 0 30px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.05"/></svg>');
+            background-size: 60px 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            color: var(--cyber-blue);
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyber-blue), var(--accent-color));
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--cyber-blue);
+            padding-left: 8px;
+            text-shadow: 0 0 8px rgba(14, 165, 233, 0.5);
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 25px;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(59, 130, 246, 0.2));
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--cyber-blue), var(--accent-color));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(14, 165, 233, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-bottom p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        /* 動畫 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-text, .about-image {
+                padding: 20px 0;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                margin-bottom: 40px;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .services-grid, .advantages-grid, .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="nav-container">
+    <!-- 導航欄 -->
+    <header>
+        <div class="container">
+            <nav>
                 <div class="logo">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>Backdoor Technology</span>
+                    <i class="fas fa-shield-alt"></i> Backdoor
                 </div>
-                <ul class="nav-menu">
-                    <li><a href="#home">首頁</a></li>
-                    <li><a href="#about">關於我們</a></li>
-                    <li><a href="#services">核心業務</a></li>
-                    <li><a href="#advantages">核心優勢</a></li>
-                    <li><a href="#contact">聯繫我們</a></li>
+                <ul class="nav-links">
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> 關於我們</a></li>
+                    <li><a href="#services"><i class="fas fa-cogs"></i> 核心業務</a></li>
+                    <li><a href="#advantages"><i class="fas fa-star"></i> 核心優勢</a></li>
+                    <li><a href="#vision"><i class="fas fa-eye"></i> 願景與價值觀</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> 聯繫方式</a></li>
                 </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
+    <!-- 英雄區 -->
+    <section class="hero">
+        <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="title-line">Backdoor Technology Limited</span>
-                    <span class="subtitle">連繫未來，守護安全</span>
-                </h1>
+                <h1><i class="fas fa-lock"></i> Backdoor Technology Limited</h1>
+                <p>透過創新科技打造安全、便捷、智能的連繫體驗，讓生活更無縫。</p>
                 
-                <!-- 飛書文檔鏈接 -->
-                <div class="document-link">
-                    <a href="https://rcnisfly6zqs.feishu.cn/wiki/XDs3wRJ6diZJo6kMN6Uc0I8DnK4?from=from_copylink" target="_blank" class="doc-btn">
-                        <i class="fas fa-file-alt"></i>
-                        查看詳細文檔
+                <div class="security-access">
+                    <a href="https://rcnisfly6zqs.feishu.cn/wiki/XDs3wRJ6diZJo6kMN6Uc0I8DnK4?from=from_copylink" target="_blank">
+                        <i class="fas fa-key"></i>
+                        <span>訪問內部加密</span>
+                        <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
                 
-                <p class="hero-description">
-                    透過創新科技打造安全、便捷、智能的連繫體驗，讓生活更無縫
-                </p>
-                <div class="hero-buttons">
-                    <a href="#services" class="btn btn-primary">
-                        <i class="fas fa-rocket"></i>
-                        探索服務
-                    </a>
-                    <a href="#contact" class="btn btn-secondary">
-                        <i class="fas fa-envelope"></i>
-                        聯繫我們
-                    </a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="floating-icons">
-                    <div class="icon-item" data-delay="0">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <div class="icon-item" data-delay="0.2">
-                        <i class="fas fa-wifi"></i>
-                    </div>
-                    <div class="icon-item" data-delay="0.4">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <div class="icon-item" data-delay="0.6">
-                        <i class="fas fa-cloud"></i>
-                    </div>
+                <div>
+                    <a href="#about" class="btn"><i class="fas fa-arrow-down"></i> 了解更多</a>
+                    <a href="#contact" class="btn btn-outline"><i class="fas fa-phone"></i> 聯繫我們</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
+    <!-- 關於我們 -->
+    <section id="about" class="section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <i class="fas fa-building"></i>
-                    公司概述
-                </h2>
-                <div class="title-underline"></div>
+            <div class="section-title fade-in">
+                <h2><i class="fas fa-building"></i> 公司簡介</h2>
             </div>
             <div class="about-content">
-                <div class="about-text">
+                <div class="about-text fade-in">
+                    <h3><i class="fas fa-rocket"></i> 香港Backdoor公司</h3>
+                    <p>香港Backdoor公司是一家專注於智能門禁系統與網絡服務的領先科技企業。自成立以來，Backdoor致力於將尖端技術融入日常生活，提供安全高效的解決方案。</p>
+                    <p>公司核心業務包括智能門禁系統、物聯網（IoT）設備開發以及雲計算網絡服務，廣泛應用於住宅、商業建築及智慧城市項目。</p>
                     <div class="company-info">
-                        <div class="info-item">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span><strong>成立時間：</strong>2018年</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span><strong>總部地點：</strong>中國香港特別行政區</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-industry"></i>
-                            <span><strong>行業：</strong>智能科技與網絡服務</span>
-                        </div>
+                        <ul>
+                            <li><i class="fas fa-tag"></i> <strong>公司名稱：</strong>Backdoor Technology Limited</li>
+                            <li><i class="fas fa-calendar"></i> <strong>成立時間：</strong>2018年</li>
+                            <li><i class="fas fa-map-marker-alt"></i> <strong>總部地點：</strong>中國香港特別行政區</li>
+                            <li><i class="fas fa-industry"></i> <strong>行業：</strong>智能科技與網絡服務</li>
+                        </ul>
                     </div>
-                    <p class="about-description">
-                        香港Backdoor公司是一家專注於智能門禁系統與網絡服務的領先科技企業。自成立以來，Backdoor致力於將尖端技術融入日常生活，提供安全高效的解決方案。公司核心業務包括智能門禁系統、物聯網（IoT）設備開發以及雲計算網絡服務，廣泛應用於住宅、商業建築及智慧城市項目。
-                    </p>
+                </div>
+                <div class="about-image fade-in">
+                    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2126&q=80" alt="智能科技辦公室">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
+    <!-- 核心業務 -->
+    <section id="services" class="section services">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <i class="fas fa-cogs"></i>
-                    核心業務
-                </h2>
-                <div class="title-underline"></div>
+            <div class="section-title fade-in">
+                <h2><i class="fas fa-briefcase"></i> 核心業務</h2>
             </div>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
-                        <i class="fas fa-door-open"></i>
+                        <i class="fas fa-door-closed"></i>
                     </div>
                     <h3>智能門禁系統</h3>
                     <p>提供基於AI及生物識別技術的門禁解決方案，支持人臉識別、指紋解鎖及遠程控制，確保高安全性和用戶便利。</p>
-                    <div class="service-features">
-                        <span class="feature-tag"><i class="fas fa-user-check"></i> 人臉識別</span>
-                        <span class="feature-tag"><i class="fas fa-fingerprint"></i> 指紋解鎖</span>
-                        <span class="feature-tag"><i class="fas fa-mobile-alt"></i> 遠程控制</span>
-                    </div>
                 </div>
-                
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
-                        <i class="fas fa-cloud"></i>
+                        <i class="fas fa-cloud-upload-alt"></i>
                     </div>
                     <h3>網絡服務</h3>
                     <p>開發高性能雲端平台及API，支持智能設備互聯，優化數據傳輸與存儲。</p>
-                    <div class="service-features">
-                        <span class="feature-tag"><i class="fas fa-server"></i> 雲端平台</span>
-                        <span class="feature-tag"><i class="fas fa-code"></i> API開發</span>
-                        <span class="feature-tag"><i class="fas fa-database"></i> 數據存儲</span>
-                    </div>
                 </div>
-                
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <i class="fas fa-network-wired"></i>
                     </div>
                     <h3>物聯網整合</h3>
                     <p>為企業和社區提供定制化物聯網解決方案，助力智慧家居和城市管理。</p>
-                    <div class="service-features">
-                        <span class="feature-tag"><i class="fas fa-home"></i> 智慧家居</span>
-                        <span class="feature-tag"><i class="fas fa-city"></i> 智慧城市</span>
-                        <span class="feature-tag"><i class="fas fa-puzzle-piece"></i> 定制方案</span>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Advantages Section -->
-    <section id="advantages" class="advantages">
+    <!-- 核心優勢 -->
+    <section id="advantages" class="section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <i class="fas fa-star"></i>
-                    核心優勢
-                </h2>
-                <div class="title-underline"></div>
+            <div class="section-title fade-in">
+                <h2><i class="fas fa-trophy"></i> 核心優勢</h2>
             </div>
             <div class="advantages-grid">
-                <div class="advantage-item">
+                <div class="advantage-item fade-in">
                     <div class="advantage-icon">
                         <i class="fas fa-lightbulb"></i>
                     </div>
-                    <h3>技術創新</h3>
-                    <p>擁有眾多專利技術，融合AI、5G及區塊鏈，確保產品安全與高效。</p>
-                </div>
-                
-                <div class="advantage-item">
-                    <div class="advantage-icon">
-                        <i class="fas fa-globe"></i>
+                    <div class="advantage-text">
+                        <h3>技術創新</h3>
+                        <p>擁有眾多專利技術，融合AI、5G及區塊鏈，確保產品安全與高效。</p>
                     </div>
-                    <h3>全球視野</h3>
-                    <p>總部設於香港，業務覆蓋亞洲、歐洲及北美，與多家國際企業合作。</p>
                 </div>
-                
-                <div class="advantage-item">
+                <div class="advantage-item fade-in">
+                    <div class="advantage-icon">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <div class="advantage-text">
+                        <h3>全球視野</h3>
+                        <p>總部設於香港，業務覆蓋亞洲、歐洲及北美，與多家國際企業合作。</p>
+                    </div>
+                </div>
+                <div class="advantage-item fade-in">
                     <div class="advantage-icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h3>用戶至上</h3>
-                    <p>提供24/7客戶支持，產品設計以用戶體驗為核心，操作簡單直觀。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Vision Section -->
-    <section class="vision">
-        <div class="container">
-            <div class="vision-content">
-                <h2>
-                    <i class="fas fa-eye"></i>
-                    願景與價值觀
-                </h2>
-                <p>
-                    Backdoor秉持「連繫未來，守護安全」的理念，致力於透過技術創新提升生活品質。公司注重可持續發展，推動綠色科技，並以開放、包容的企業文化吸引全球頂尖人才。
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <i class="fas fa-envelope"></i>
-                    聯繫我們
-                </h2>
-                <div class="title-underline"></div>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>電子郵箱</h3>
-                            <a href="mailto:zymctbdhk@gmail.com">zymctbdhk@gmail.com</a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>公司地址</h3>
-                            <p>香港九龍尖沙咀科學園科技大道東8號</p>
-                        </div>
+                    <div class="advantage-text">
+                        <h3>用戶至上</h3>
+                        <p>提供24/7客戶支持，產品設計以用戶體驗為核心，操作簡單直觀。</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- 願景與價值觀 -->
+    <section id="vision" class="section vision">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2><i class="fas fa-eye"></i> 願景與價值觀</h2>
+            </div>
+            <div class="vision-content fade-in">
+                <p>Backdoor秉持「連繫未來，守護安全」的理念，致力於透過技術創新提升生活品質。公司注重可持續發展，推動綠色科技，並以開放、包容的企業文化吸引全球頂尖人才。</p>
+                <a href="#contact" class="btn"><i class="fas fa-handshake"></i> 加入我們</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 聯繫方式 -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2><i class="fas fa-address-book"></i> 聯繫方式</h2>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>電子郵件</h3>
+                    <a href="mailto:zymctbdhk@gmail.com">zymctbdhk@gmail.com</a>
+                </div>
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>公司地址</h3>
+                    <p>香港九龍尖沙咀科學園科技大道東8號</p>
+                </div>
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>客戶支持</h3>
+                    <p>24/7全天候服務</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁腳 -->
+    <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>Backdoor Technology Limited</span>
+                <div class="footer-column">
+                    <h3><i class="fas fa-shield-alt"></i> 關於Backdoor</h3>
+                    <p>香港Backdoor公司正以其前瞻性技術和卓越服務，引領智能科技行業的發展，為全球用戶開啟更安全、更智能的未來。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
-                <p class="footer-text">
-                    香港Backdoor公司正以其前瞻性技術和卓越服務，引領智能科技行業的發展，為全球用戶開啟更安全、更智能的未來。
-                </p>
-                <div class="footer-bottom">
-                    <p>&copy; 2024 Backdoor Technology Limited. All rights reserved.</p>
+                <div class="footer-column">
+                    <h3><i class="fas fa-link"></i> 快速鏈接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> 關於我們</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> 核心業務</a></li>
+                        <li><a href="#advantages"><i class="fas fa-chevron-right"></i> 核心優勢</a></li>
+                        <li><a href="#vision"><i class="fas fa-chevron-right"></i> 願景與價值觀</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> 聯繫方式</a></li>
+                    </ul>
                 </div>
+                <div class="footer-column">
+                    <h3><i class="fas fa-tools"></i> 服務</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> 智能門禁系統</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> 網絡服務</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> 物聯網整合</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> 技術支持</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> 解決方案諮詢</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Backdoor Technology Limited. 版權所有。</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // 導航菜單切換
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
+        // 滾動時導航欄效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 10);
         });
-        
+
+        // 滾動動畫
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+
         // 平滑滾動
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
@@ -300,33 +1055,45 @@
                 }
             });
         });
-        
-        // 滾動動畫
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
+
+        // 安全感動畫效果
+        function createSecurityParticles() {
+            const hero = document.querySelector('.hero');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 2px;
+                    height: 2px;
+                    background: rgba(14, 165, 233, 0.6);
+                    border-radius: 50%;
+                    top: ${Math.random() * 100}%;
+                    left: ${Math.random() * 100}%;
+                    animation: securityFloat ${3 + Math.random() * 4}s ease-in-out infinite;
+                    animation-delay: ${Math.random() * 2}s;
+                `;
+                hero.appendChild(particle);
+            }
+        }
+
+        // 添加安全粒子動畫CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes securityFloat {
+                0%, 100% {
+                    transform: translateY(0px) translateX(0px);
+                    opacity: 0.6;
                 }
-            });
-        }, observerOptions);
-        
-        // 觀察所有需要動畫的元素
-        document.querySelectorAll('.service-card, .advantage-item, .contact-item').forEach(el => {
-            observer.observe(el);
-        });
-        
-        // 浮動圖標動畫
-        document.querySelectorAll('.icon-item').forEach((icon, index) => {
-            const delay = parseFloat(icon.dataset.delay) * 1000;
-            setTimeout(() => {
-                icon.classList.add('animate');
-            }, delay);
-        });
+                50% {
+                    transform: translateY(-20px) translateX(10px);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 初始化安全粒子
+        createSecurityParticles();
     </script>
 </body>
 </html>
